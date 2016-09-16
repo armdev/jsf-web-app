@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:accordionPanel value="#{i18n.generalmenu}" rendered="#{sessionContext.user != null}"   activeIndex="#{sessionContext.activeIndex}">
+        <p:ajax event="tabChange" listener="#{sessionContext.onChange}"></p:ajax>
+        <p:tab title="#{i18n.dataManagement}" id="dataManagement"> 
+            <h:form>
+                <ul class="nav"> 
+
+                    <li>
+                        <h:outputLink styleClass="fa fa-arrow-right"  value="#{request.contextPath}/pages/user/settings.jsf">
+                            #{i18n.editprofile}
+                        </h:outputLink> 
+                    </li>  
+                   
+                </ul>   
+            </h:form>
+        </p:tab>
+        <p:tab title="#{i18n.settings}" id="settings"> 
+            <h:form>
+                <ul class="nav"> 
+
+                    <li>
+                        <h:outputLink styleClass="fa fa-arrow-right"   value="#{request.contextPath}/pages/catalog/newcatalog.jsf">
+                            #{i18n.newcatalog}
+                        </h:outputLink> 
+                    </li>  
+                    <li>
+                        <h:outputLink styleClass="fa fa-arrow-right"   value="#{request.contextPath}/pages/catalog/catalog.jsf">
+                            #{i18n.catalog}
+                        </h:outputLink> 
+                    </li>  
+
+                </ul>   
+            </h:form>
+        </p:tab>    
+
+
+        <p:tab title="#{i18n.exit}"> 
+            <h:form>
+                <ul class="nav">                                       
+                    <li>
+                        <h:commandLink value="#{i18n.logout}" styleClass="glyphicon glyphicon-hand-right" action="#{userLogout.doLogout}"
+                                       immediate="true" rendered="#{sessionContext.user != null}"/>
+                    </li>                    
+                </ul>   
+            </h:form>
+        </p:tab>
+    </p:accordionPanel>
+</html>
+

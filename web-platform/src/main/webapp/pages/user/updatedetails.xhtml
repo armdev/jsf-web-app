@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">     
+
+    <f:view contracts="default" transient="false">
+        <h:head>         
+            <f:metadata>  
+
+            </f:metadata>  
+        </h:head>
+        <ui:composition template="/template.xhtml">              
+            <ui:define name="content">   
+
+                <h:form prependId="false" id="updateUser" rendered="#{sessionContext.user.id != null}">                   
+                    <!--=== Purchase Block ===-->
+                    <p:growl id="messages" showDetail="true" life="2000" />
+
+                    <div class="container content">
+                        <div class="row">
+
+                            <label>#{i18n.phone}</label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="phone" jsf:required="true"  jsf:value="#{profileUpdateBean.user.phone}" class="form-control">
+                                        <f:validateLength maximum="50"/>
+                                    </input>
+                                </div>                
+                            </div>
+                            <label>#{i18n.skypeId}</label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="skypeId" jsf:required="true"  jsf:value="#{profileUpdateBean.user.skypeId}" class="form-control">
+                                        <f:validateLength maximum="50"/>
+                                    </input>
+                                </div>                
+                            </div>
+                            <label>#{i18n.url}</label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="url" jsf:required="true"  jsf:value="#{profileUpdateBean.user.url}" class="form-control">
+                                        <f:validateLength maximum="300"/>
+                                    </input>
+                                </div>                
+                            </div>
+                            <label>#{i18n.zipcode}</label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="zipcode" jsf:required="true"  jsf:value="#{profileUpdateBean.user.zipcode}" class="form-control">
+                                        <f:validateLength maximum="10"/>
+                                    </input>
+                                </div>                
+                            </div>  
+                            <label>#{i18n.language}</label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="language" jsf:required="true"  jsf:value="#{profileUpdateBean.user.language}" class="form-control">
+                                        <f:validateLength maximum="10"/>
+                                    </input>
+                                </div>                
+                            </div>
+                            <hr/>
+                            <p> 
+                                <h:commandLink action="#{profileUpdateBean.updateDetails()}" rendered="#{profileUpdateBean.user.id != null}" styleClass="btn btn-info" 
+                                               value="#{i18n.edit}">
+
+                                </h:commandLink>
+                                 <p:spacer height="10px"/>
+                                <h:button outcome="settings.jsf" rendered="#{sessionContext.user.id != null}" value="#{i18n.cancel}" styleClass="btn btn-danger">
+
+                                </h:button>
+                            </p>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

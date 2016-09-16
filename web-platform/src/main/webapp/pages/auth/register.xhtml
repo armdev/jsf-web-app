@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">     
+
+    <f:metadata>           
+             
+    </f:metadata> 
+    <f:view contracts="general" transient="false">
+        <ui:composition template="/template.xhtml">              
+            <ui:define name="content">   
+                <h:form prependId="false" id="addUser" rendered="#{sessionContext.user.id == null}">                   
+                    <p:growl/>
+                    <div class="container content">
+                        <div class="row">                           
+                            <label> #{i18n.firstname} *</label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="firstname" jsf:value="#{userRegister.user.firstname}" jsf:required="true"  style="width:400px" class="form-control">
+                                        <f:validateLength maximum="50"/>
+                                    </input>
+                                </div>                
+                            </div>
+                            <label> #{i18n.lastname} * <span class="color-red"> </span></label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="lastname" jsf:value="#{userRegister.user.lastname}" jsf:required="true" style="width:400px"  class="form-control">
+                                        <f:validateLength maximum="50"/>
+                                    </input>                
+                                </div>
+                            </div>
+                            <label>#{i18n.email}<span class="color-red"> *</span></label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="email" jsf:value="#{userRegister.user.email}" jsf:required="true"  style="width:400px" class="form-control">
+                                        <f:validator  validatorId="EmailValidator"/>
+                                        <f:validateLength maximum="100"/>
+                                    </input>                
+                                </div>
+                            </div>
+                            <label>Company name<span class="color-red">*</span></label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="companyname" style="width:400px" jsf:value="#{userRegister.user.companyname}" class="form-control">                                       
+                                        <f:validateLength maximum="100"/>
+                                    </input>                
+                                </div>
+                            </div>
+                            <label>#{i18n.serviceCountry}<span class="color-red">*</span></label>
+                            <div class="row margin-bottom-20">
+                                <div class="col-md-7 col-md-offset-0">
+                                    <input type="text" jsf:id="serviceCountry" jsf:required="true" style="width:400px" jsf:value="#{userRegister.user.country}" class="form-control">                                       
+                                        <f:validateLength maximum="100"/>
+                                    </input>                
+                                </div>
+                            </div>
+                           
+                            <label>#{i18n.password}<span class="color-red"> *</span></label>                          
+                            <div class="row margin-bottom-20">                               
+                                <div class="col-sm-9">
+                                    <input type="password" jsf:id="password" jsf:value="#{userRegister.user.passwd}" style="width:400px" jsf:required="true"  class="form-control">
+                                        <f:validateLength minimum="6" maximum="20"/>
+                                    </input>   
+                                </div>
+                            </div>             
+                            <label><span class="color-red"> *</span></label>                          
+                            <div class="row margin-bottom-20">                               
+                                <div class="col-sm-9">
+
+                                    <h:selectBooleanCheckbox id="agree" requiredMessage="#{i18n.mandatoryField}" value="#{userRegister.agree}" 
+                                                             >
+                                        <f:validator validatorId="requiredCheckboxValidator" />
+                                    </h:selectBooleanCheckbox>
+
+                                    #{i18n.agreement} <h:outputLink style="color: #000099 "  value="#">
+                                        #{i18n.agreementName}
+                                    </h:outputLink> 
+                                </div>
+                            </div>             
+                                            
+                            <hr/>
+                            <p>
+                                <button type="submit"  jsf:action="#{userRegister.saveUser()}" class="btn btn-info">#{i18n.register}</button>
+                                <p:spacer height="10px"/>
+                                <h:outputLink value="#{request.contextPath}/index.jsf" styleClass="btn btn-info btn-danger">
+                                    #{i18n.mainpage}
+                                </h:outputLink>
+                            </p>
+                        </div>
+                    </div>
+                </h:form>
+                <center>
+                    <h:outputLink styleClass="btn btn-block" rendered="#{sessionContext.user.id != null}" value="#{request.contextPath}/pages/user/profile.jsf">
+                        #{i18n.profilelink}
+                    </h:outputLink> 
+                </center>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>
